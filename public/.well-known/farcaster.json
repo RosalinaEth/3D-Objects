@@ -1,0 +1,10 @@
+{
+  "name": "Soul Element Quiz",
+  "description": "Discover which element matches your soul through a magical quiz 🌊🔥🌍💨",
+  "url": "https://quiz-soul.vercel.app",
+  "icons": ["https://quiz-soul.vercel.app/icon.png"],
+  "splash": {
+    "image": "https://quiz-soul.vercel.app/images/og-clean_h21k6u.jpg",
+    "backgroundColor": "#ffffff"
+  }
+}
