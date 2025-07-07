@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 
 const app = new Hono();
-app.get("/", (c) => c.text("Hello World!"));
 
 interface Score {
   Water: number;
@@ -31,6 +30,7 @@ const quizData = [
   }
 ];
 
+// 🟣 أول Frame لما المستخدم يفتح الميني آب
 app.get("/", (c) => {
   return c.json({
     version: "vNext",
@@ -42,6 +42,7 @@ app.get("/", (c) => {
   });
 });
 
+// 🟢 التعامل مع كل سؤال والنتيجة النهائية
 app.post("/submit", async (c) => {
   const body = await c.req.json();
   const step = Number(body.step) || 0;
@@ -52,6 +53,7 @@ app.post("/submit", async (c) => {
     score[answer] = (score[answer] || 0) + 1;
   }
 
+  // ✅ بعد آخر سؤال: عرض النتيجة
   if (step >= quizData.length) {
     const top = Object.entries(score).sort((a, b) => b[1] - a[1])[0][0];
 
@@ -73,6 +75,7 @@ app.post("/submit", async (c) => {
     });
   }
 
+  // 🟡 عرض سؤال جديد
   const current = quizData[step];
 
   return c.json({
@@ -91,6 +94,13 @@ app.post("/submit", async (c) => {
   });
 });
 
+// ✅ التصدير لفاركستر / فيرسل
 export default app;
 
-console.log("🟢 Server is running on localhost...");
+// ✅ للتشغيل المحلي فقط (مش محتاجاه في Vercel)
+if (process.env.NODE_ENV !== "production") {
+  const port = Number(process.env.PORT) || 3000;
+  app.fetch = app.fetch.bind(app); // Needed for some environments
+  Bun.serve({ fetch: app.fetch, port });
+  console.log(`🟢 Server is running on http://localhost:${port}`);
+}
