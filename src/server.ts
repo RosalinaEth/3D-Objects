@@ -101,6 +101,5 @@ export default app;
 if (process.env.NODE_ENV !== "production") {
   const port = Number(process.env.PORT) || 3000;
   app.fetch = app.fetch.bind(app); // Needed for some environments
-  Bun.serve({ fetch: app.fetch, port });
   console.log(`🟢 Server is running on http://localhost:${port}`);
 }
