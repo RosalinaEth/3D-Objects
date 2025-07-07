@@ -77,3 +77,4 @@ app.post("/submit", async (c) => {
     });
 });
 exports.default = app;
+console.log("🟢 Server is running on localhost...");
