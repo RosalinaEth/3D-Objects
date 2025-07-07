@@ -122,4 +122,12 @@ app.post("/submit", async (c) => {
   });
 });
 
+app.get('/.well-known/farcaster.json', (c) => {
+  return c.json({
+    name: 'Soul Element',
+    id: '<your‑app‑id>',
+    url: 'https://quiz-soul.vercel.app',
+  })
+})
+
 export default app;
