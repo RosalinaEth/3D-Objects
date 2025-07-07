@@ -103,3 +103,32 @@ if (process.env.NODE_ENV !== "production") {
   app.fetch = app.fetch.bind(app); // Needed for some environments
   console.log(`🟢 Server is running on http://localhost:${port}`);
 }
+
+app.get("/", (c) => {
+  return c.html(`
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta name="fc:miniapp" content='{
+          "version": "1",
+          "imageUrl": "https://res.cloudinary.com/dzdas1gyp/image/upload/v1750974302/og-clean_h21k6u.jpg",
+          "button": {
+            "title": "🌊 Discover your element",
+            "action": {
+              "type": "launch_miniapp",
+              "url": "https://quiz-sou.vercel.app",
+              "name": "Soul Element",
+              "splashImageUrl": "https://res.cloudinary.com/dzdas1gyp/image/upload/v1750974302/og-clean_h21k6u.jpg",
+              "splashBackgroundColor": "#ffffff"
+            }
+          }
+        }' />
+        <title>Soul Element</title>
+      </head>
+      <body>
+        <h1>Welcome to Soul Element Quiz</h1>
+        <p>This page is sharable in Farcaster.</p>
+      </body>
+    </html>
+  `);
+});
