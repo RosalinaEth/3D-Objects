@@ -1,4 +1,5 @@
 {
+  "type": "miniapp",
   "name": "Soul Element Quiz",
   "description": "Discover which element matches your soul through a magical quiz 🌊🔥🌍💨",
   "url": "https://quiz-soul.vercel.app",
