@@ -92,3 +92,5 @@ app.post("/submit", async (c) => {
 });
 
 export default app;
+
+console.log("🟢 Server is running on localhost...");
