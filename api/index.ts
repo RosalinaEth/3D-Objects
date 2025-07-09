@@ -132,5 +132,8 @@ app.get("/.well-known/farcaster.json", (c) => {
   });
 });
 
+export const config = {
+  runtime: 'edge',
+};
 // ✅ Export لـ Vercel 
 export default app;
