@@ -123,7 +123,7 @@ app.post("/submit", async (c) => {
   });
 });
 
-// 🟢 Farcaster miniapp metadata endpoint
+// 🟢 Farcaster miniapp metadata endpoint 
 app.get("/.well-known/farcaster.json", (c) => {
   return c.json({
     name: "Soul Element",
@@ -132,5 +132,5 @@ app.get("/.well-known/farcaster.json", (c) => {
   });
 });
 
-// ✅ Export لـ Vercel
+// ✅ Export لـ Vercel 
 export default app;
