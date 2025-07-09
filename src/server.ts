@@ -30,7 +30,7 @@ const quizData = [
   }
 ];
 
-// 🟣 أول Frame لما المستخدم يفتح الميني آب
+// 🟣 Farcaster Frame (الكويز)
 app.get("/", (c) => {
   const ua = c.req.header("user-agent") || "";
   const isFarcaster = ua.includes("Farcaster");
@@ -46,34 +46,34 @@ app.get("/", (c) => {
     });
   }
 
-  return c.html(`
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta name="fc:miniapp" content='{
-          "version": "1",
-          "imageUrl": "https://res.cloudinary.com/dzdas1gyp/image/upload/v1750974302/og-clean_h21k6u.jpg",
-          "button": {
-            "title": "🌊 Discover your element",
-            "action": {
-              "type": "launch_miniapp",
-              "url": "https://quiz-soul.vercel.app",
-              "name": "Soul Element",
-              "splashImageUrl": "https://res.cloudinary.com/dzdas1gyp/image/upload/v1750974302/og-clean_h21k6u.jpg",
-              "splashBackgroundColor": "#ffffff"
-            }
+  // 🟢 Sharable Meta for Farcaster feed
+  return c.html(`<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta name="fc:miniapp" content='{
+        "version": "1",
+        "imageUrl": "https://res.cloudinary.com/dzdas1gyp/image/upload/v1750974302/og-clean_h21k6u.jpg",
+        "button": {
+          "title": "🌊 Discover your element",
+          "action": {
+            "type": "launch_miniapp",
+            "url": "https://quiz-soul.vercel.app",
+            "name": "Soul Element",
+            "splashImageUrl": "https://res.cloudinary.com/dzdas1gyp/image/upload/v1750974302/og-clean_h21k6u.jpg",
+            "splashBackgroundColor": "#ffffff"
           }
-        }' />
-        <title>Soul Element</title>
-      </head>
-      <body>
-        <h1>Welcome to Soul Element Quiz</h1>
-        <p>This page is sharable in Farcaster.</p>
-      </body>
-    </html>
-  `);
+        }
+      }' />
+      <title>Soul Element</title>
+    </head>
+    <body>
+      <h1>Welcome to Soul Element Quiz</h1>
+      <p>This page is sharable in Farcaster.</p>
+    </body>
+  </html>`);
 });
 
+// 🔁 Logic submit
 app.post("/submit", async (c) => {
   const body = await c.req.json();
   const step = Number(body.step) || 0;
@@ -86,6 +86,7 @@ app.post("/submit", async (c) => {
 
   if (step >= quizData.length) {
     const top = Object.entries(score).sort((a, b) => b[1] - a[1])[0][0];
+
     return c.json({
       version: "vNext",
       image: `https://soul-element.vercel.app/images/${top.toLowerCase()}-farcaster-hyouka.jpg`,
@@ -122,12 +123,14 @@ app.post("/submit", async (c) => {
   });
 });
 
-app.get('/.well-known/farcaster.json', (c) => {
+// 🟢 Farcaster miniapp metadata endpoint
+app.get("/.well-known/farcaster.json", (c) => {
   return c.json({
-    name: 'Soul Element',
-    id: '<your‑app‑id>',
-    url: 'https://quiz-soul.vercel.app',
-  })
-})
+    name: "Soul Element",
+    id: "soul-element-dev",
+    url: "https://quiz-soul.vercel.app"
+  });
+});
 
+// ✅ Export لـ Vercel
 export default app;
