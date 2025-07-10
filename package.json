@@ -1,7 +1,6 @@
 {
-  "name": "soul-quiz",
-  "version": "1.0.0",
-  "dependencies": {
-    "hono": "^4.8.3"
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js"
   }
 }
