@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import type { Context } from "hono";
 
 const app = new Hono();
 
@@ -31,7 +32,7 @@ const quizData = [
 ];
 
 // 🟣 Farcaster Frame (الكويز)
-app.get("/", (c) => {
+app.get("/", (c: Context) => {
   const ua = c.req.header("user-agent") || "";
   const isFarcaster = ua.includes("Farcaster");
 
@@ -74,7 +75,7 @@ app.get("/", (c) => {
 });
 
 // 🔁 Logic submit
-app.post("/submit", async (c) => {
+app.post("/submit", async (c: Context) => {
   const body = await c.req.json();
   const step = Number(body.step) || 0;
   const answer = body.answer as keyof Score | null;
@@ -124,7 +125,7 @@ app.post("/submit", async (c) => {
 });
 
 // 🟢 Farcaster miniapp metadata endpoint 
-app.get("/.well-known/farcaster.json", (c) => {
+app.get("/.well-known/farcaster.json", (c: Context) => {
   return c.json({
     name: "Soul Element",
     id: "soul-element-dev",

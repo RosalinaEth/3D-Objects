@@ -1,6 +1,14 @@
 {
   "scripts": {
+    "dev": "ts-node api/server.ts",
     "build": "tsc",
     "start": "node dist/server.js"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "hono": "^4.8.5"
   }
 }
