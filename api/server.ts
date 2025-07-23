@@ -133,8 +133,4 @@ app.get("/.well-known/farcaster.json", (c: Context) => {
   });
 });
 
-export const config = {
-  runtime: 'edge',
-};
-// ✅ Export لـ Vercel 
-export default app;
+export default app.fetch;
